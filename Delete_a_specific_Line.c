@@ -37,7 +37,7 @@ int main(void)
         printf(" \n Enter line number of the line to be deleted: ");
         scanf("%d", &delete_line);
         //open new file in write mode
-        f2 = fopen("replica.c", "w");
+        f2 = fopen("replica.txt", "w");
         if(f2==NULL)
         {
             printf("Eroare de scriere in fisier!!!");
@@ -46,20 +46,21 @@ int main(void)
         deleteLine(f1, f2);
         fclose(f1);
         fclose(f2);
-        //rename the file replica.c to original name
-        rename("replica.c", fname);
         remove(fname);
+        //rename the file replica.c to original name
+        rename("replica.txt", fname);
         printf("\n The contents of file after being modified are as follows:\n");
-        f1 = fopen(fname, "r");
-        if(f1==NULL)
+        f2 = fopen(fname , "r");
+        if(f2==NULL)
         {
             printf("Eroare de scriere in fisier!!!");
             exit(1);
         }
-        while ((ch=fgetc(f1))!= EOF)
+        while ((ch=fgetc(f2))!= EOF)
         {
             printf("%c", ch);
         }
-        fclose(f1);
+        fclose(f2);
         return 0;
     }
+
