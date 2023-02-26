@@ -9,7 +9,7 @@ int main(void)
     FILE *in=fopen("file3.txt", "r");
     if(in==NULL)
     {
-        printf("Eroare!!");
+        printf("Error!!");
         exit(1);
     }
     // Extract characters from file and store in character c
@@ -21,6 +21,6 @@ int main(void)
         }
     }
     fclose(in);
-    printf("Numarul de linii din fisier este: %d", k);
+    printf("Number of line in the file is: %d", k);
     return 0;
   
