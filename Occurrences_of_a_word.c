@@ -8,16 +8,16 @@ int main(void)
     FILE *f1;
     char fname[40]="verasmechera.txt", word[50];
     int wCount;
-    printf("Introduceti cuvantul pe care doriti sa il gasiti in fisier: ");
+    printf("Type the word that you want to find in the file: ");
     scanf("%s", word);
     f1 = fopen(fname, "r");
     if (f1 == NULL)
     {
-        printf("Eroare de citire din fisier!!!");
+        printf("Reading error!!!");
         exit(1);
     }
     wCount = countOccurrences(f1, word);
-    printf("'%s' este gasit de %d ori in fisier", word, wCount);
+    printf("'%s' is found %d times in this file", word, wCount);
     fclose(f1);
     return 0;
 }
