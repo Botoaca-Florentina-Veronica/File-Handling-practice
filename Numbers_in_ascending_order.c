@@ -28,7 +28,7 @@ int main(void)
     f1=fopen(fname, "r");
     if(f1==NULL)
     {
-        printf("Eroare de citire!!");
+        printf("Reading error!!");
         exit(1);
     }
     while(fscanf(f1, "%d", &c)!=EOF)
@@ -47,7 +47,7 @@ int main(void)
     for(i=0; i<n; i++)
     {
         fscanf(f1, "%d", &x[i]);
-        printf("Numar: %d\n", x[i]);
+        printf("Number: %d\n", x[i]);
     }
     printf("\n");
     bubbleSort(x, n);
@@ -55,13 +55,13 @@ int main(void)
     f1=fopen(fname, "w");
     if(f1==NULL)
     {
-        printf("Eroare scriere fisier!!");
+        printf("Writing error!!");
         exit(1);
     }
     for(i=0;i<n;i++)
     {
-        fprintf(f1, "Numar sortat: %d\n", x[i]);
-        printf("Numar sortat: %d\n", x[i]);
+        fprintf(f1, "Sorted number: %d\n", x[i]);
+        printf("Sorted number: %d\n", x[i]);
     }
     fclose(f1);
     free(x);
