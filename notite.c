@@ -1,3 +1,190 @@
+/*
+
+//prb 1
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main(void)
+{
+      char s[100];   //s reprezinta cuvantul
+      printf("Introduceti un sir de caractere: ");
+      fgets(s, 100, stdin);
+      printf("Hello %s !", s);
+      return 0;
+}
+
+*/
+
+
+/*
+//prb 2
+#include<stdio.h>
+#include<string.h>
+#include<stdint.h>
+
+int functie(int n)
+{
+    int i, k=0;
+    uint8_t mask=0x80;
+    uint8_t b=0;
+    for(i=0; i<8; i++)
+    {
+        b= mask & n;
+        if(b!=0)
+        {
+            k++;
+        }
+        mask = mask >>1;
+    }
+    return k;
+}
+int main(void)
+{
+    int n;
+    printf("Introduceti un numar: ");
+    scanf("%d", &n);
+    printf("Numarul de biti de 1 este: %d\n", functie(n));
+    return 0;
+}
+
+//prb 3
+#include<stdio.h>
+#include<stdint.h>
+#include<string.h>
+#include<stdlib.h>
+void afisare_pe_biti(uint16_t n)
+{
+    uint16_t mask=0x8000;
+    uint8_t i=0;
+    for(i=0; i<16; i++)
+    {
+        if((n & mask)==0)
+        {
+            printf("0");
+        }
+        else
+        {
+            printf("1");
+        }
+        mask=mask>>1;
+    }
+    printf("\n");
+}
+
+
+int main(void)
+{
+    int i, n;
+    char s[100], *d;
+    printf("Introduceti un sir de caractere: ");
+    fgets(s, 100, stdin);
+    n=strlen(s);
+    d=(char *)malloc(n*sizeof(char));
+    if(d==NULL)
+    {
+        printf("Eroare!!!!");
+        exit(-1);
+    }
+    for(i=0; i<n; i++)
+    {
+        d[i]=s[i]; //copiere
+    }
+    afisare_pe_biti(n);
+    return 0;
+}
+
+//prb 4
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+ typedef struct
+ {
+    char nume[20];
+    char marca[20];
+    char cod[20];
+    int pret;
+ }Unelte;
+
+int 
+
+
+ int main(void)
+ {
+    int n;
+    printf("Adauga o optiune: ");
+    scanf("%d", &n);
+    switch(n)
+    {
+        case 0:
+        {
+            break;
+        }
+        case 1:
+        {
+
+        }
+    }
+ }
+
+*/
+
+/*
+//Afisati toate cuvintele dintr-un fisier cu prima litera fiind majuscula
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<ctype.h>
+
+void functie_majuscula(char ch[100])
+{
+    if(islower(ch[0]))
+    {
+        ch[0]=toupper(ch[0]);
+        printf("%c", ch[0]);
+    }
+    int i, n;
+    n=strlen(ch);
+    for(i=1; i<n; i++)
+    {
+        if(ch[i-1]==' ' && islower(ch[i]))
+        {
+            ch[i]=toupper(ch[i]);
+            printf("%c", ch[i]);
+            
+        }
+        else
+        {
+            printf("%c", ch[i]);
+        }
+    }
+    
+}
+
+int main(void)
+{
+    FILE *f1;
+    char ch[100];
+    char fname[40]="verasmechera.txt";
+    f1=fopen(fname, "r+");
+    if(f1==NULL)
+    {
+        printf("Eroare!!!");
+        exit(-1);
+    }
+    while(fgets(ch, 100, f1) != NULL)
+    {
+        functie_majuscula(ch);
+    }
+    printf("\n");
+    return 0;
+}
+
+*/
+
+
+
+
 //sort in ascending order the ids and alphabetical order the names of people in a txt file using struct, and print the result on the compiler too
 #include <stdio.h>
 #include <stdlib.h>
