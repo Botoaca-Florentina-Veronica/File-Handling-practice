@@ -9,13 +9,16 @@ void deleteLine(FILE *f1, FILE *f2)
     while ((ch=fgetc(f1))!= EOF)
         {
             if (ch == '\n')
+            {
                 temp++;
-                //except the line to be deleted
-                if (temp != delete_line)
-                {
-                    //copy all lines in file replica.c
-                    fputc(ch, f2);
-                }
+            }
+            //except the line to be deleted
+            if (temp != delete_line)
+            {
+                //copy all lines in file replica.c
+                fputc(ch, f2);
+            }
+
         }
 }
 int main(void)
@@ -60,7 +63,63 @@ int main(void)
         {
             printf("%c", ch);
         }
+        printf("\n");
         fclose(f2);
         return 0;
     }
 
+
+
+
+//almost same program but without rewind and delete line function:
+/* C Program Delete a specific Line from a Text File */
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main(void)
+{
+    int i, n=0, delete_line, enter=1;
+    FILE *f1, *f2;
+    char ch, fname[40]="verasmechera.txt";
+    f1=fopen(fname, "r");
+    f2=fopen("temp.txt", "w");
+    if(f1==NULL || f2==NULL)
+    {
+        printf("Eroare citire din fisier!!");
+        exit(1);
+    }
+    printf("Introduceti numarul liniei pe care doriti sa o stergeti: ");
+    scanf("%d", &delete_line);
+    while((ch=fgetc(f1))!=EOF)
+    {
+        printf("%c", ch);   //printez ce am in fisier
+        n++;   //numarul de caractere din fisier
+        if(ch=='\n')
+        {
+            enter++;
+        }
+        if(enter != delete_line)
+        {
+            fputc(ch, f2);
+        }
+    }
+    printf("\n\n");
+    fclose(f1);
+    fclose(f2);
+
+    remove(fname);
+    rename("temp.txt", fname);
+
+    f2=fopen(fname, "r");
+    if(f2==NULL)
+    {
+        printf("Eroare de citire din fisier final!!");
+        exit(1);
+    }
+    while((ch=fgetc(f2))!=EOF)
+    {
+        printf("%c", ch);
+    }
+    fclose(f2);
+    return 0;
+}
