@@ -24,11 +24,12 @@ int main(void)
 {
     int *temp;
     char fname[20]="verasmechera.txt";
-    FILE *f1;
+    FILE *f1, *f2;
     f1=fopen(fname, "r");
-    if(f1==NULL)
+    f2=fopen("temp.txt", "w");
+    if(f1==NULL || f2==NULL)
     {
-        printf("Reading error!!");
+        printf("Reading or writing in file error!!");
         exit(1);
     }
     while(fscanf(f1, "%d", &c)!=EOF)
@@ -42,7 +43,7 @@ int main(void)
         }
         x=temp;
         x[n]=c;
-        n++;   
+        n++;
     }
     for(i=0; i<n; i++)
     {
@@ -51,19 +52,19 @@ int main(void)
     }
     printf("\n");
     bubbleSort(x, n);
-    fclose(f1);
-    f1=fopen(fname, "w");
-    if(f1==NULL)
-    {
-        printf("Writing error!!");
-        exit(1);
-    }
+
     for(i=0;i<n;i++)
     {
-        fprintf(f1, "Sorted number: %d\n", x[i]);
+        fprintf(f2, "Sorted number: %d\n", x[i]);
         printf("Sorted number: %d\n", x[i]);
     }
+
     fclose(f1);
+    fclose(f2);
+
+    remove(fname);
+    rename("temp.txt", fname);
+
     free(x);
     return 0;
 }
