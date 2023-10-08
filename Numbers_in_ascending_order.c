@@ -3,10 +3,10 @@
 #include<string.h>
 #include<stdlib.h>
 #include<ctype.h>
-int i,n=0,j,temp;  //n is the number of numbers in the file
-int *x, c;
+
 void bubbleSort(int *v, int n)
 {
+    int i,j,temp;  
     for(i=0; i<n; i++)
     {
         for(j=0; j<n-1-i; j++)
@@ -22,7 +22,7 @@ void bubbleSort(int *v, int n)
 }
 int main(void)
 {
-    int *temp;
+    int *v, num, count=0, i;
     char fname[20]="verasmechera.txt";
     FILE *f1, *f2;
     f1=fopen(fname, "r");
@@ -32,31 +32,34 @@ int main(void)
         printf("Reading or writing in file error!!");
         exit(1);
     }
-    while(fscanf(f1, "%d", &c)!=EOF)
+    while(fscanf(f1, "%d", &num)!=EOF)
     {
-        temp=realloc(x, (n+1)*sizeof(int));
-        if(temp==NULL)
+        //practic num reprezinta fiecare numar din fisier
+        v=realloc(v, (count+1)*sizeof(int));
+        if(v==NULL)
         {
             printf("Eroare!!!");
-            free(x);
+            free(v);
             exit(1);
         }
-        x=temp;
-        x[n]=c;
-        n++;
+        v[count]=num; //aici imi pun in vectorul v fiecare numar preluat din fisier
+        count++;  //aici vreau practic sa va cate numere am in fisier
+        //asa ca la fiecare pas voi adauga +1
     }
-    for(i=0; i<n; i++)
+    printf("Initial content of the file:\n");
+    for(i=0; i<count; i++)
     {
-        fscanf(f1, "%d", &x[i]);
-        printf("Number: %d\n", x[i]);
+        fscanf(f1, "%d", &v[i]);
+        printf(" %d\n", v[i]);
     }
     printf("\n");
-    bubbleSort(x, n);
+    bubbleSort(v, count);
 
-    for(i=0;i<n;i++)
+    printf("Sorted numbers:\n");
+    for(i=0; i<count; i++)
     {
-        fprintf(f2, "Sorted number: %d\n", x[i]);
-        printf("Sorted number: %d\n", x[i]);
+        fprintf(f2, "%d\n", v[i]);
+        printf("%d\n", v[i]);
     }
 
     fclose(f1);
@@ -65,6 +68,6 @@ int main(void)
     remove(fname);
     rename("temp.txt", fname);
 
-    free(x);
+    free(v);
     return 0;
 }
