@@ -1,55 +1,71 @@
 //C program that replaces capital letters with small ones and viceversa.
- #include<stdio.h>
- #include<string.h>
- #include<stdlib.h>
- #include<ctype.h>
-int main(void)
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<ctype.h>
+
+void replaceLetters(FILE *f1, FILE *f2)
 {
-    FILE *fp1,*fp2;
-    char ch, fname[40]="verasmechera.txt";
-    fp1=fopen(fname,"r");
-    fp2=fopen("temp.txt","w");
-    if(fp1==NULL || fp2==NULL)
+    char ch;
+    while(fscanf(f1, "%c", &ch)!=EOF)
     {
-        printf("Error with files!!!");
-        exit(1);
-    }
-    printf("\n");
-    while((ch=fgetc(fp1))!=EOF)
-    {
-        printf("%c",ch);  //printing on compiler what is in the file
-        if(ch>=97 && ch<=122)
-        {
-            ch=toupper(ch);
-            fputc(ch, fp2);
-        }
-        else if(ch>=65 && ch<=90)
+        if(ch>='A' && ch<='Z')
         {
             ch=tolower(ch);
-            fputc(ch, fp2);
+            fputc(ch, f2);
+        }
+        else if(ch>='a' && ch<='z')
+        {
+            ch=toupper(ch);
+            fputc(ch, f2);
         }
         else
         {
-            fputc(ch, fp2);
+            //adica caracterul actual nu e litera, deci orice ar fi, il vom pune in fisierul final
+            fputc(ch, f2);
         }
     }
-    fclose(fp1);
-    fclose(fp2);
+}
 
-    remove(fname);
-    rename("temp.txt",fname);
 
-    fp2=fopen(fname,"r");
-    if(fp2==NULL)
+int main(void)
+{
+    char ch, fname[30]="verasmechera.txt";
+    FILE *f1, *f2;
+    f1=fopen(fname, "r");
+    f2=fopen("temp.txt", "w");
+    if(f1==NULL && f2==NULL)
     {
-        printf("Error while opening for reading");
+        printf("Eroare la citirea si scriera in fisierele f1 si f2!");
+        free(f1);
+        free(f2);
         exit(1);
     }
-    printf("\n");
-    while((ch=fgetc(fp2))!=EOF)
+
+    replaceLetters(f1, f2);
+
+    fclose(f1);
+    fclose(f2);
+
+    remove(fname);
+    rename("temp.txt", fname);
+
+    f2=fopen(fname, "r");
+    if(f2==NULL)
     {
-       printf("%c",ch);
+        printf("Eroare la citirea fisierului final!!");
+        free(f2);
+        exit(1);
     }
-    fclose(fp2);
+
+    //acum printam tot ce se afla in fisierul final
+    while((ch=fgetc(f2))!=EOF)
+    {
+        printf("%c", ch);  //printam ce se afla in fisierul f2 fiindca deja avem ce trebuie in f2 dupa efectuarea functiei replaceLetters
+    }
+
+    fclose(f2);
+
+    //nu uita de fclose!
     return 0;
 }
