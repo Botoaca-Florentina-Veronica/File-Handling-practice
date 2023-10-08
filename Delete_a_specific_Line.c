@@ -57,9 +57,10 @@ int main(void)
     }
 
     char ch;
+    //acum printam ce avem in f2 direct in termial
     while((ch=fgetc(f2))!=EOF)
     {
-        fprintf(f2, "%c", ch);
+        printf("%c", ch);
     }
 
     fclose(f2);
